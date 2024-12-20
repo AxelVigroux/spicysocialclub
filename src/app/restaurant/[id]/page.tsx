@@ -1,19 +1,10 @@
 import { CommentForm } from "~/components/comment-form";
 
 import { getRestaurant } from "~/server/actions/restaurants";
-
-interface RestaurantPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function RestaurantPage({ params }: RestaurantPageProps) {
-  const {
-    success,
-    data: restaurant,
-    error,
-  } = await getRestaurant(Number(params.id));
+type tParams = Promise<{ id: string }>;
+export default async function Page({ params }: { params: tParams }) {
+  const { id } = await params;
+  const { data: restaurant } = await getRestaurant(Number(id));
 
   if (!restaurant) {
     return null;
@@ -21,7 +12,6 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-4 py-8">
-      {/* Info section */}
       <section className="flex flex-col">
         <h1 className="text-center text-4xl font-bold">{restaurant.name}</h1>
         <p className="text-muted-foreground mt-8 text-left text-2xl">
@@ -32,7 +22,6 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
         </p>
       </section>
 
-      {/* Stats section */}
       <section className="items-left flex flex-col">
         <h2 className="mb-6 mt-6 text-2xl font-semibold">Notes</h2>
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
@@ -105,7 +94,6 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
 
       <div className="bg-action w-ful m-10 h-1"></div>
 
-      {/* Comments section */}
       <section className="items-left flex flex-col">
         <h2 className="mb-6 mt-6 text-2xl font-semibold">Commentaires</h2>
         <div className="w-full space-y-4">

@@ -20,7 +20,7 @@ import {
 } from "~/server/db/schema";
 import { createRestaurant } from "~/server/actions/restaurants";
 
-export function AddRestaurantPage() {
+export default function NewRestaurant() {
   const router = useRouter();
 
   const form = useForm<CreateRestaurantInput>({

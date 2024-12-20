@@ -93,7 +93,7 @@ export async function addComment(
       date: new Date(),
     };
 
-    const currentComments = restaurant.comments || [];
+    const currentComments = restaurant.comments ?? [];
     const updatedComments = [...currentComments, newComment];
 
     await db
